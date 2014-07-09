@@ -20,7 +20,8 @@
     "gulp-uglify": "*",
     "gulp-connect": "*",
     "gulp-watch": "*",
-    "tiny-lr": "*"
+    "tiny-lr": "*",
+    "underscore": "*"
   },
   "directories": {
     "test": "test"

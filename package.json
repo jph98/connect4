@@ -5,7 +5,22 @@
   "main": "game.js",
   "devDependencies": {
    "mocha": "*",
-   "should": ">= 0.0.1"
+   "should": ">= 0.0.1",
+    "bower": "*",
+    "gulp": "*",
+    "gulp-util": "*",
+    "gulp-clean": "*",
+    "gulp-concat": "*",
+    "gulp-download": "*",
+    "gulp-rename": "*",
+    "gulp-minify-css": "*",
+    "gulp-minify-html": "*",
+    "gulp-processhtml": "*",
+    "gulp-jshint": "*",
+    "gulp-uglify": "*",
+    "gulp-connect": "*",
+    "gulp-watch": "*",
+    "tiny-lr": "*"
   },
   "directories": {
     "test": "test"

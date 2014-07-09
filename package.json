@@ -1,0 +1,26 @@
+{
+  "name": "connect4",
+  "version": "0.0.0",
+  "description": "connect4 ========",
+  "main": "game.js",
+  "devDependencies": {
+   "mocha": "*",
+   "should": ">= 0.0.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jph98/connect4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jph98/connect4/issues"
+  },
+  "homepage": "https://github.com/jph98/connect4"
+}

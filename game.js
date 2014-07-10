@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
-var util = require('underscore');
-var board = require('./board.js');
+var Board = require('./board');
 
-
+console.log("Board...");
+var board = new Board(10, 10);
+board.initialise();
+board.show_grid();

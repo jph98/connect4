@@ -9,7 +9,7 @@
     "bower": "*",
     "gulp": "*",
     "gulp-util": "*",
-    "gulp-clean": "*",
+    "gulp-rimraf": "*",
     "gulp-concat": "*",
     "gulp-download": "*",
     "gulp-rename": "*",

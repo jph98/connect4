@@ -1,4 +1,9 @@
 connect4
 ========
 
-Connect4 game
+Make sure you have node.js installed first up.  Then:
+
+	npm install
+
+
+

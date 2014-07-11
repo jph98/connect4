@@ -42,7 +42,14 @@ function gameOver() {
 
 	console.log("Checking for game over state");
 
-	// 
+	// Check row
+
+	// Check column
+
+	// Check diagonal 
+
+	// Check other diagonal
+	
 	return false;
 }
 

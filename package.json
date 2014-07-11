@@ -21,7 +21,8 @@
     "gulp-connect": "*",
     "gulp-watch": "*",
     "tiny-lr": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "readline-sync": "*"
   },
   "directories": {
     "test": "test"

@@ -3,7 +3,7 @@
 // See - http://www.hacksparrow.com/node-js-exports-vs-module-exports.html
 var _ = require('underscore');
 
-EMPTY = "|"
+EMPTY = "|";
 
 module.exports = function (height, width) {
 
@@ -28,19 +28,24 @@ module.exports = function (height, width) {
 		return this.grid;
 	};
 
-	this.showGrid = function () {	
+	this.showHeader = function() {
 
 		var header = "";
 		for (var x = 0; x < width; x++) {
-			header += (x + 1) + " "
+			header += (x + 1) + " ";
 		}
 		console.log(this.getSpaces(width.toString().length * 2) + header);
+	};
+
+	this.showGrid = function () {	
+
+		this.showHeader();
 
 		for (var y = 0; y < height; y++) {	
 			
-			var display = ""
+			var display = "";
 			for (var x = 0; x < width; x++) {
-				display += this.grid[y][x] + " "
+				display += this.grid[y][x] + " ";
 			}
 			var row_num = y + 1;
 			console.log(row_num + ":" + this.getSpacesForRowNumber(row_num, width) + display);
@@ -51,16 +56,16 @@ module.exports = function (height, width) {
 		
 		var numspaces = (width.toString().length - row_num.toString().length) + 1;
 		return this.getSpaces(numspaces);
-	}
+	};
 
 	this.getSpaces = function(numspaces) {
 
 		var padding = "";
 		for (var n = 0; n < numspaces; n++) {
-			padding += " "
+			padding += " ";
 		}
 		return padding;
-	}
+	};
 
 	this.findNextVerticalSlot = function(colIndex) {
 
@@ -74,7 +79,7 @@ module.exports = function (height, width) {
 			} 
 		}
 		return -1;
-	}
+	};
 
 	this.placeCounter = function(column, counter) {
 
@@ -88,5 +93,5 @@ module.exports = function (height, width) {
 			return false;
 		}
 		
-	}
+	};
 };

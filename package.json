@@ -5,6 +5,7 @@
   "main": "game.js",
   "devDependencies": {
    "mocha": "*",
+   "chai": "*",
    "should": ">= 0.0.1",
     "bower": "*",
     "gulp": "*",
@@ -19,7 +20,8 @@
     "gulp-watch": "*",
     "tiny-lr": "*",
     "underscore": "*",
-    "readline-sync": "*"
+    "readline-sync": "*",
+    "colors": "*"
   },
   "directories": {
     "test": "test"

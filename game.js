@@ -2,7 +2,19 @@
 
 var Board = require('./board');
 var Player = require('./player');
-var readline = require('readline-sync');
+var Colors = require('colors');
+
+// Main game loop
+var height = 10;
+var width = 10;
+var board = new Board(height, width);
+board.initialise();
+
+var playerOne = new Player(1, "X");
+var playerTwo = new Player(2, "O");
+var currentPlayer = playerOne;
+var gameOver = false;
+var turnTaken = false;
 
 function getColumnFromPlayer() {
 
@@ -18,78 +30,48 @@ function validate(column, maximum) {
 	return false;
 }
 
-function placeCounter(column, symbol) {
-
-	console.log("Placing " + symbol + " at " + column);
-
-	if (board.placeCounter(column, symbol)) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
 function changePlayer(currentPlayer) {
 
-	if (currentPlayer.getNumber() == 1) {
+	if (currentPlayer.getNumber() === 1) {
 		return 2;
 	} else {
 		return 1;
 	}
 }
 
-function gameOver() {
-
-	console.log("Checking for game over state");
-
-	// Check row
-
-	// Check column
-
-	// Check diagonal 
-
-	// Check other diagonal
-	
-	return false;
-}
-
 // Main game loop
-var height = 10;
-var width = 10;
-var gameOver = false;
-var playerNumberTurn = 1;
-
-var board = new Board(height, width);
-board.initialise();
-
-var playerOne = new Player(1, "X");
-var playerTwo = new Player(2, "O");
-var currentPlayer = playerOne;
-
-// TODO: Loop and switch players
-var turnTaken = false;
-
 while (!gameOver) {
 
 	while (!turnTaken) {
 
-		column = getColumnFromPlayer();
+		var column = getColumnFromPlayer();
 		var valid = validate(column, width);
 
 		if (valid) {
 
-			if (placeCounter(column, currentPlayer.getSymbol())) {
+			var symbol = currentPlayer.getSymbol();
+			console.log("Placing " + symbol + " at " + column);
+			var rowColIndex = board.placeCounter(column, symbol);
 
-				turnTaken = true;
-				board.showGrid();
-				var number = changePlayer(currentPlayer);
+			if (rowColIndex !== undefined) {
 
-				if (number == 1) {
-					currentPlayer = playerOne;
+				if (board.gameOverStateReached(rowColIndex[0], rowColIndex[1], symbol)) {
+					turnTaken = true;
+					gameOver = true;
 				} else {
-					currentPlayer = playerTwo;
+
+					turnTaken = true;
+					board.showGrid();
+					var number = changePlayer(currentPlayer);
+
+					if (number === 1) {
+						currentPlayer = playerOne;
+					} else {
+						currentPlayer = playerTwo;
+					}
+					var msg = "Player " + currentPlayer.getNumber() + " take your turn."; 
+					console.log(msg.rainbow);	
 				}
-				console.log("Changed player to " + currentPlayer.getNumber());
 			}
 
 		} else {

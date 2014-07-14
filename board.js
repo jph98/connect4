@@ -244,10 +244,44 @@ module.exports = function (height, width) {
 
 	this.checkDiagLowerLeftIndexes = function(rowIndex, colIndex, symbol) {
 
-		// TODO
+		console.log("\n\nCheck LOWER LEFT DIAG\n\n");
+		var count = 0;
+		var maxRow = rowIndex + 4;
+		var maxCol = colIndex - 4;
+
+		console.log("Row index: " + rowIndex + " colIndex: " + colIndex + " maxRow: " + maxRow + " maxCol: " + maxCol);
+		if (maxRow <= height && maxCol >= 0) {
+
+			while (rowIndex < maxRow && colIndex > maxCol) {
+
+				count = this.checkCounters(rowIndex, colIndex, symbol, count);
+				rowIndex += 1;
+				colIndex -= 1;
+			}
+		}
+
+		return count === 4;
 	};
 
 	this.checkDiagLowerRightIndexes = function(rowIndex, colIndex, symbol) {
+
+		console.log("\n\nCheck LOWER RIGHT DIAG\n\n");
+		var count = 0;
+		var maxRow = rowIndex + 4;
+		var maxCol = colIndex + 4;
+
+		console.log("Row index: " + rowIndex + " colIndex: " + colIndex + " maxRow: " + maxRow + " maxCol: " + maxCol);
+		if (maxRow <= height && maxCol <= width) {
+
+			while (rowIndex < maxRow && colIndex < maxCol) {
+
+				count = this.checkCounters(rowIndex, colIndex, symbol, count);
+				rowIndex += 1;
+				colIndex += 1;
+			}
+		}
+
+		return count === 4;
 	};
 
 	this.gameOverStateReached = function(rowIndex, colIndex, symbol) {
@@ -255,29 +289,49 @@ module.exports = function (height, width) {
 		console.log("Checking for game over state using " + rowIndex + " " + colIndex);
 
 		// Columns
-		// if (this.checkLeftIndexes(rowIndex, colIndex, symbol)) {
-		// 	console.log("Cols RIGHT: WIN");
-		// } else if (this.checkRightIndexes(rowIndex, colIndex, symbol)) {
-		// 	console.log("Cols LEFT: WIN");
-		// }
+		if (this.checkLeftIndexes(rowIndex, colIndex, symbol)) {
+			console.log("Cols RIGHT: WIN");
+			return true;
+		}
+
+		if (this.checkRightIndexes(rowIndex, colIndex, symbol)) {
+			console.log("Cols LEFT: WIN");
+			return true;
+		}
 
 		// // Rows
-		// if (this.checkDownIndexes(rowIndex, colIndex, symbol)) {
-		// 	console.log("Row DOWN: WIN");
-		// } else if (this.checkUpIndexes(rowIndex, colIndex, symbol)) {
-		// 	console.log("Row UP: WIN");
-		// }
+		if (this.checkDownIndexes(rowIndex, colIndex, symbol)) {
+			console.log("Row DOWN: WIN");
+			return true;
+		} 
 
-		// // Diagonals
-		// if (this.checkDiagUpperRightIndexes(rowIndex, colIndex, symbol)) {
-		// 	console.log("Diag Upper Right: WIN");
-		// } else if (this.checkDiagUpperLeftIndexes(rowIndex, colIndex, symbol)) {
-		//  console.log("Diag Upper Left: WIN");
-		// } else if (this.checkDiagLowerLeftIndexes(rowIndex, colIndex, symbol)) {
-		//  console.log("Diag Lower Left: WIN");
-		// } else if (this.checkDiagLowerRightIndexes(rowIndex, colIndex, symbol)) {
-		//  console.log("Diag Lower Right: WIN");
-		// }
+		if (this.checkUpIndexes(rowIndex, colIndex, symbol)) {
+			console.log("Row UP: WIN");
+			return true;
+		}
+
+		// Diagonals
+		if (this.checkDiagUpperRightIndexes(rowIndex, colIndex, symbol)) {
+			console.log("Diag Upper Right: WIN");
+			return true;
+		} 
+
+		if (this.checkDiagUpperLeftIndexes(rowIndex, colIndex, symbol)) {
+			console.log("Diag Upper Left: WIN");
+			return true;
+		} 
+
+		if (this.checkDiagLowerLeftIndexes(rowIndex, colIndex, symbol)) {
+		 	console.log("Diag Lower Left: WIN");
+		 	return true;
+		} 
+
+		if (this.checkDiagLowerRightIndexes(rowIndex, colIndex, symbol)) {
+		 	console.log("Diag Lower Right: WIN");
+		 	return true;
+		}
+
+		console.log("All checks resulted in no game end state");
 
 		return false;
 	};

@@ -3,6 +3,9 @@
 var Board = require('./board');
 var Player = require('./player');
 var Colors = require('colors');
+var Chalk = require('chalk');
+
+var DEBUG = false;
 
 // Main game loop
 var height = 10;
@@ -19,6 +22,7 @@ var turnTaken = false;
 function getColumnFromPlayer() {
 
 	var readlineSync = require('readline-sync');
+	board.showGrid();
 	return readlineSync.question('Column number:');
 }
 
@@ -39,7 +43,13 @@ function changePlayer(currentPlayer) {
 	}
 }
 
-// Main game loop
+// Main game loop: pull out output logic
+var gameMsg = "\nConnect 4\n";
+console.log(gameMsg.rainbow.underline);
+
+var msg = "Player " + currentPlayer.getNumber() + " take your turn."; 
+console.log(msg.green);
+
 while (!gameOver) {
 
 	while (!turnTaken) {
@@ -50,7 +60,7 @@ while (!gameOver) {
 		if (valid) {
 
 			var symbol = currentPlayer.getSymbol();
-			console.log("Placing " + symbol + " at " + column);
+			DEBUG && console.log("Placing " + symbol + " at " + column);
 			var rowColIndex = board.placeCounter(column, symbol);
 
 			if (rowColIndex !== undefined) {
@@ -58,6 +68,10 @@ while (!gameOver) {
 				if (board.gameOverStateReached(rowColIndex[0], rowColIndex[1], symbol)) {
 					turnTaken = true;
 					gameOver = true;
+
+					var msg = "\nGame Over! Player" + currentPlayer.getNumber() + " WINS!\n";
+					console.log(msg.rainbow);	
+
 				} else {
 
 					turnTaken = true;
@@ -69,8 +83,8 @@ while (!gameOver) {
 					} else {
 						currentPlayer = playerTwo;
 					}
-					var msg = "Player " + currentPlayer.getNumber() + " take your turn."; 
-					console.log(msg.rainbow);	
+					var msg = "\nPlayer " + currentPlayer.getNumber() + " take your turn."; 
+					console.log(msg.green);	
 				}
 			}
 

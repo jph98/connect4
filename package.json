@@ -21,7 +21,8 @@
     "tiny-lr": "*",
     "underscore": "*",
     "readline-sync": "*",
-    "colors": "*"
+    "colors": "*",
+    "chalk": "*"
   },
   "directories": {
     "test": "test"

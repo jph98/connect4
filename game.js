@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+//'use strict';
 var Board = require('./board');
 var Player = require('./player');
 var Colors = require('colors');

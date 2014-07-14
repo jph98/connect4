@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+//'use strict';
 // Load the node-router library by creationix
 var server = require('node-router').getServer();
 

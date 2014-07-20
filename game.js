@@ -23,12 +23,14 @@ function getColumnFromPlayer() {
 
 	var readlineSync = require('readline-sync');
 	board.showGrid();
-	return readlineSync.question('Column number:');
+
+	var msg = "\nPlayer " + currentPlayer.getNumber() + " turn: "; 
+	return readlineSync.question(msg.green);
 }
 
 function validate(column, maximum) {
 
-	if (column > 0 && column < maximum) {
+	if (column > 0 && column <= maximum) {
 		return true;
 	}
 	return false;
@@ -47,8 +49,8 @@ function changePlayer(currentPlayer) {
 var gameMsg = "\nConnect 4\n";
 console.log(gameMsg.rainbow.underline);
 
-var msg = "Player " + currentPlayer.getNumber() + " take your turn."; 
-console.log(msg.green);
+//var msg = "Player " + currentPlayer.getNumber() + " take your turn."; 
+//console.log(msg.green);
 
 while (!gameOver) {
 
@@ -69,13 +71,14 @@ while (!gameOver) {
 					turnTaken = true;
 					gameOver = true;
 
-					var msg = "\nGame Over! Player" + currentPlayer.getNumber() + " WINS!\n";
-					console.log(msg.rainbow);	
+					board.showGrid();
+					var msg = "\nGame Over! Player " + currentPlayer.getNumber() + " WINS!\n";
+					console.log(msg.yellow);	
 
 				} else {
 
 					turnTaken = true;
-					board.showGrid();
+					//board.showGrid();
 					var number = changePlayer(currentPlayer);
 
 					if (number === 1) {

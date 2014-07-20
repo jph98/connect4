@@ -31,18 +31,19 @@ module.exports = function (height, width) {
 		return this.grid;
 	};
 
-	this.showHeader = function() {
+	this.showTopHeader = function() {
 
 		var header = "";
 		for (var x = 0; x < width; x++) {
 			header += (x + 1) + " ";
 		}
-		DEBUG && console.log(this.getSpaces(width.toString().length * 2) + header);
+		//console.log(this.getSpaces(width.toString().length * 2) + header);
+		console.log(header);
 	};
 
 	this.showGrid = function () {	
 
-		this.showHeader();
+		this.showTopHeader();
 
 		for (var y = 0; y < height; y++) {	
 			
@@ -51,7 +52,8 @@ module.exports = function (height, width) {
 				display += this.grid[y][x] + " ";
 			}
 			var row_num = y + 1;
-			console.log(row_num + ":" + this.getSpacesForRowNumber(row_num, width) + display);
+			//console.log(row_num + ":" + this.getSpacesForRowNumber(row_num, width) + display);
+			console.log(display);
 		}
 	};
 

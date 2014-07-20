@@ -30,17 +30,26 @@ describe("Board", function() {
 
     it("should place count", function() {
 
+      // row, column
       var board = new Board(10, 10);
       board.initialise();
       board.placeCounter(5, "X");
       expect(board.getCounter(10,5)).to.equal("X");
 
-      board.placeCounter(5, "X");
-      board.displayGridLocations();
-      expect(board.getCounter(9,5)).to.equal("X");
+      // Edges
+      board.placeCounter(10, "X");
+      expect(board.getCounter(10,10)).to.equal("X");
 
-      expect(board.getCounter(8,5)).to.equal("|");
-      
+      board.placeCounter(1, "X");
+      expect(board.getCounter(10,1)).to.equal("X");
+
+      for (var col = 1; col <= 10; col++) {
+        board.placeCounter(col, "X");
+        expect(board.getCounter(10,col)).to.equal("X");      
+      }
+      board.showGrid();
+
+
     });
   });
 

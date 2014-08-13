@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Connect4</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+        }
+    </style>
+    <script src="pixi.js"></script>
+</head>
+
+<body>
+
+    <script>
+        
+        var width = 800;     
+        var height = 600;
+        var grid = new Array();
+            
+        for (var col = 0; col < 8; col++) {
+            grid[col] = new Array();
+            for (var row = 0; row < 6; row++) {
+                grid[row] = "E";
+            }
+        }
+        
+
+        function addSprite(stage, name, column) {
+
+            var texture = PIXI.Texture.fromImage(name);
+            var counter = new PIXI.Sprite(texture);
+
+            var colIndex = column - 1;
+            if (grid[colIndex] != "E") {
+                
+            } else {
+                colIndex += 1;
+            }
+
+            counter.position.x = 0;
+            counter.position.y = height - 50;
+            stage.addChild(counter);            
+        }
+
+        var stage = new PIXI.Stage(0x00688B);               
+        var renderer = PIXI.autoDetectRenderer(width, height);
+        document.body.appendChild(renderer.view);            
+
+        requestAnimFrame(animate);
+
+        // Load 50px sprite and place
+        addSprite(stage, "images/counter-red.png", 1);
+        addSprite(stage, "images/counter-red.png", 1);
+     
+        function animate() {
+     
+            requestAnimFrame(animate);
+
+            // TODO: Eventually move the counter down the screen when it's new
+
+            renderer.render(stage);
+        }
+
+    </script>
+ 
+    </body>
+</html>

@@ -22,7 +22,8 @@
     "underscore": "*",
     "readline-sync": "*",
     "colors": "*",
-    "chalk": "*"
+    "chalk": "*",
+    "browserify": "*"
   },
   "directories": {
     "test": "test"

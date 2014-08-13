@@ -10,57 +10,101 @@
         }
     </style>
     <script src="pixi.js"></script>
+    <script src="connect4-module.js"></script>
 </head>
 
 <body>
 
     <script>
         
-        var width = 800;     
-        var height = 600;
-        var grid = new Array();
+        var width = 490;     
+        var height = 490;
             
-        for (var col = 0; col < 8; col++) {
-            grid[col] = new Array();
-            for (var row = 0; row < 6; row++) {
-                grid[row] = "E";
-            }
-        }
-        
+        var maxcols = 8;
+        var maxrows = 6;
 
-        function addSprite(stage, name, column) {
+        function showPlayerNumber(stage) {
+
+            // var text = new PIXI.Text("Player " + getCurrentPlayer().getNumber() , {font:"35px Arial", fill:"white"});
+            // stage.addChild(text);
+        }
+
+        function addSprite(stage, name, x, y) {
 
             var texture = PIXI.Texture.fromImage(name);
             var counter = new PIXI.Sprite(texture);
+            counter.setInteractive(true);
 
-            var colIndex = column - 1;
-            if (grid[colIndex] != "E") {
-                
-            } else {
-                colIndex += 1;
+            counter.position.x = 10 + (x * 60);
+            counter.position.y = 100 + (y * 60);
+            stage.addChild(counter);
+
+            counter.click = function(mouseData) {
+
+                var board = getBoard();
+                var symbol = getCurrentPlayer().getSymbol();
+                var column = x + 1;
+                console.log("Column selected " + column + " - " + symbol);
+                var rowColIndex = board.placeCounter(column, symbol);
+                renderBoard();
+
+                // Switch players over
+                switchPlayer(getCurrentPlayer());
+                showPlayerNumber(stage);
+                console.log("Player " + getCurrentPlayer().getNumber());
+
+                // TODO: Display pixi text for current player
+
+                if (board.gameOverStateReached(rowColIndex[0], rowColIndex[1], symbol)) {
+
+                    // TODO: Display pixi text for game over
+                    console.log("GAME OVER!");
+                } else {
+                    console.log("Not game over yet");
+                }
             }
-
-            counter.position.x = 0;
-            counter.position.y = height - 50;
-            stage.addChild(counter);            
         }
 
-        var stage = new PIXI.Stage(0x00688B);               
+        function renderBoard() {
+
+            var board = getBoard();
+            var grid = board.getGrid();
+
+            for (var y = 0; y < maxrows; y++) {  
+            
+                var row = ""
+                for (var x = 0; x < maxcols; x++) {
+                    var counter = grid[y][x];
+
+                    // Load 50px sprite and place
+                    if (counter === "X") {
+                        addSprite(stage, "images/counter-red.png", x, y);
+                    } else if (counter === "O") {
+                        addSprite(stage, "images/counter-yellow.png", x, y);
+                    } else if (counter === "|") {
+                        addSprite(stage, "images/counter-empty.png", x, y);
+                    }
+
+                    row += counter + " ";
+                }
+            }
+        }
+
+        var interactive = true;
+        var stage = new PIXI.Stage(0x00688B, interactive);               
         var renderer = PIXI.autoDetectRenderer(width, height);
         document.body.appendChild(renderer.view);            
 
+        renderBoard();
+
+        // TODO: Display pixi text for current player
+        showPlayerNumber(stage);
+
         requestAnimFrame(animate);
 
-        // Load 50px sprite and place
-        addSprite(stage, "images/counter-red.png", 1);
-        addSprite(stage, "images/counter-red.png", 1);
-     
         function animate() {
      
             requestAnimFrame(animate);
-
-            // TODO: Eventually move the counter down the screen when it's new
-
             renderer.render(stage);
         }
 

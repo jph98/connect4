@@ -16,6 +16,7 @@ module.exports = function (height, width) {
 
 	// Draw rows top to bottom
 	this.initialise = function() {
+
 		for (var y = 0; y < height; y++) {
 
 			this.grid[y] = new Array(width);
@@ -25,6 +26,7 @@ module.exports = function (height, width) {
 				this.grid[y][x] = EMPTY;
 			}
 		}
+		console.log("Initialised board");
 	};
 
 	this.getGrid = function() {

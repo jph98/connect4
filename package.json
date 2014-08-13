@@ -18,12 +18,13 @@
     "gulp-jshint": "*",
     "gulp-connect": "*",
     "gulp-watch": "*",
+    "gulp-util": "*",
+    "gulp-browserify": "*",
     "tiny-lr": "*",
     "underscore": "*",
     "readline-sync": "*",
     "colors": "*",
-    "chalk": "*",
-    "browserify": "*"
+    "chalk": "*"
   },
   "directories": {
     "test": "test"

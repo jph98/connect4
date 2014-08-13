@@ -45,55 +45,59 @@ function changePlayer(currentPlayer) {
 	}
 }
 
-// Main game loop: pull out output logic
-var gameMsg = "\nConnect 4\n";
-console.log(gameMsg.rainbow.underline);
+var main = function(){
 
-//var msg = "Player " + currentPlayer.getNumber() + " take your turn."; 
-//console.log(msg.green);
+	// Main game loop: pull out output logic
+	var gameMsg = "\nConnect 4\n";
+	console.log(gameMsg.rainbow.underline);
 
-while (!gameOver) {
+	while (!gameOver) {
 
-	while (!turnTaken) {
+		while (!turnTaken) {
 
-		var column = getColumnFromPlayer();
-		var valid = validate(column, width);
+			var column = getColumnFromPlayer();
+			var valid = validate(column, width);
 
-		if (valid) {
+			if (valid) {
 
-			var symbol = currentPlayer.getSymbol();
-			DEBUG && console.log("Placing " + symbol + " at " + column);
-			var rowColIndex = board.placeCounter(column, symbol);
+				var symbol = currentPlayer.getSymbol();
+				DEBUG && console.log("Placing " + symbol + " at " + column);
+				var rowColIndex = board.placeCounter(column, symbol);
 
-			if (rowColIndex !== undefined) {
+				if (rowColIndex !== undefined) {
 
-				if (board.gameOverStateReached(rowColIndex[0], rowColIndex[1], symbol)) {
-					turnTaken = true;
-					gameOver = true;
+					if (board.gameOverStateReached(rowColIndex[0], rowColIndex[1], symbol)) {
+						turnTaken = true;
+						gameOver = true;
 
-					board.showGrid();
-					var msg = "\nGame Over! Player " + currentPlayer.getNumber() + " WINS!\n";
-					console.log(msg.yellow);	
+						board.showGrid();
+						var msg = "\nGame Over! Player " + currentPlayer.getNumber() + " WINS!\n";
+						console.log(msg.yellow);	
 
-				} else {
-
-					turnTaken = true;
-					//board.showGrid();
-					var number = changePlayer(currentPlayer);
-
-					if (number === 1) {
-						currentPlayer = playerOne;
 					} else {
-						currentPlayer = playerTwo;
-					}
-					var msg = "\nPlayer " + currentPlayer.getNumber() + " take your turn."; 
-					console.log(msg.green);	
-				}
-			}
 
-		} else {
-			console.log("Column invalid, please choose again");
+						turnTaken = true;
+						//board.showGrid();
+						var number = changePlayer(currentPlayer);
+
+						if (number === 1) {
+							currentPlayer = playerOne;
+						} else {
+							currentPlayer = playerTwo;
+						}
+						var msg = "\nPlayer " + currentPlayer.getNumber() + " take your turn."; 
+						console.log(msg.green);	
+					}
+				}
+
+			} else {
+				console.log("Column invalid, please choose again");
+			}
 		}
+		turnTaken = false;
 	}
-	turnTaken = false;
+}
+
+if (require.main === module) {
+    main();
 }

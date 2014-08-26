@@ -3,10 +3,13 @@
   "version": "0.0.0",
   "description": "connect4 ========",
   "main": "game.js",
+
+  // Server side Node dependencies
+  
   "devDependencies": {
-   "mocha": "*",
-   "chai": "*",
-   "should": ">= 0.0.1",
+    "mocha": "*",
+    "chai": "*",
+    "should": ">= 0.0.1",
     "bower": "*",
     "gulp": "*",
     "gulp-util": "*",
@@ -26,6 +29,7 @@
     "colors": "*",
     "chalk": "*"
   },
+
   "directories": {
     "test": "test"
   },

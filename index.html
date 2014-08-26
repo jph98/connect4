@@ -10,6 +10,7 @@
         }
     </style>
     <script src="pixi.js"></script>
+    <script src="buzz.js"></script>
     <script src="connect4-module.js"></script>
 </head>
 
@@ -23,10 +24,62 @@
         var maxcols = 8;
         var maxrows = 6;
 
+        var textContainer = new PIXI.DisplayObjectContainer();
+
+        var win = new buzz.sound("./sounds/tada.wav");
+        var counter = new buzz.sound("./sounds/click.wav");
+
         function showPlayerNumber(stage) {
 
-            // var text = new PIXI.Text("Player " + getCurrentPlayer().getNumber() , {font:"35px Arial", fill:"white"});
-            // stage.addChild(text);
+            var text = new PIXI.Text("Player " + getCurrentPlayer().getNumber() + "'s turn", 
+                                         {font:"35px Arial", fill:"white"});
+                
+            textContainer.position.x = 15;
+            textContainer.position.y = 25;
+
+            if (textContainer.children.length === 0) {
+
+                textContainer.addChild(text);
+                stage.addChild(textContainer);
+
+            } else {
+
+                textContainer.children = [];
+
+                textContainer.addChild(text);
+                stage.addChild(textContainer);
+            }
+        }
+
+        function displayWinner(winner) {
+
+            var text;
+            if (winner === 1) {
+
+                text = new PIXI.Text("Player " + winner + " wins!", 
+                                             {font:"35px Arial", fill:"red"});
+            } else {
+                
+                text = new PIXI.Text("Player " + winner + " wins!", 
+                                             {font:"35px Arial", fill:"yellow"});
+            }
+                
+            textContainer.position.x = 15;
+            textContainer.position.y = 25;
+
+            textContainer.children = [];
+            textContainer.addChild(text);
+            stage.addChild(textContainer);
+        }
+
+        function playCounterSound() {
+
+            counter.play();
+        }
+
+        function playWinnerSound() {
+
+            win.play();
         }
 
         function addSprite(stage, name, x, y) {
@@ -46,26 +99,32 @@
                 var column = x + 1;
                 console.log("Column selected " + column + " - " + symbol);
                 var rowColIndex = board.placeCounter(column, symbol);
-                renderBoard();
+                renderBoard(true);
 
-                // Switch players over
-                switchPlayer(getCurrentPlayer());
-                showPlayerNumber(stage);
-                console.log("Player " + getCurrentPlayer().getNumber());
-
-                // TODO: Display pixi text for current player
+                playCounterSound();
 
                 if (board.gameOverStateReached(rowColIndex[0], rowColIndex[1], symbol)) {
 
                     // TODO: Display pixi text for game over
-                    console.log("GAME OVER!");
+                    console.log("Game OVER");
+                    displayWinner(getCurrentPlayer().getNumber());
+                    playWinnerSound();
+
                 } else {
+
+                    switchPlayer(getCurrentPlayer());
+                    showPlayerNumber(stage);
+                    console.log("Player " + getCurrentPlayer().getNumber());   
                     console.log("Not game over yet");
                 }
             }
         }
 
-        function renderBoard() {
+        /**
+         * Render the board
+         * update - don't add more empty sprites if we're updating
+         */ 
+        function renderBoard(update) {
 
             var board = getBoard();
             var grid = board.getGrid();
@@ -82,7 +141,10 @@
                     } else if (counter === "O") {
                         addSprite(stage, "images/counter-yellow.png", x, y);
                     } else if (counter === "|") {
-                        addSprite(stage, "images/counter-empty.png", x, y);
+
+                        if (!update) {
+                            addSprite(stage, "images/counter-empty.png", x, y);
+                        }
                     }
 
                     row += counter + " ";
@@ -90,12 +152,13 @@
             }
         }
 
+        console.log("main");
         var interactive = true;
         var stage = new PIXI.Stage(0x00688B, interactive);               
         var renderer = PIXI.autoDetectRenderer(width, height);
         document.body.appendChild(renderer.view);            
 
-        renderBoard();
+        renderBoard(false);
 
         // TODO: Display pixi text for current player
         showPlayerNumber(stage);

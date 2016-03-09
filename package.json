@@ -3,8 +3,6 @@
   "version": "0.0.0",
   "description": "connect4 ========",
   "main": "game.js",
-
-  // Server side Node dependencies
   
   "devDependencies": {
     "mocha": "*",
